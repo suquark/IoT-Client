@@ -1,0 +1,29 @@
+# This file describes how oxford API works
+# An API looks like this : "https://api.projectoxford.ai/emotion/v1.0/recognize[?faceRectangles]"
+# Actually, it is "HostName/ModelName/ModelVersion/FunctionName/Parameters"
+
+hostname: https://api.projectoxford.ai
+models:
+  vision:
+    version: v1
+    describe: "Computer Vision APIs （计算机视觉）"
+    details: "这款免费的计算机视觉产品包含所有(Computer Vision APIs)的方法。这些方法有图像分析，生成缩略图和光学字符识别。这些APIs每分钟最多可以接受20条请求，每月最多接受5000条请求。"
+  face:
+    version: v1.0
+  emotion:
+    version: v1.0
+  video:
+    version: v1.0
+  speech:
+    version:
+    subroutine:
+      spellcheck:
+  spid:
+    version: v1.0
+  text:
+    version: v1.0
+  weblm:
+    version: v1.0
+  academic:
+    version: v1.0
+

@@ -1,0 +1,19 @@
+{
+  "device": "Raspberry Pi 2 Model B",
+  "location":"USTC-WEST-3A402",
+  "label": "Distance watcher",
+  "tags": ["idle"],
+  "control-level": 3,
+  "io": [
+    {
+      "id":"signal",
+      "pin": [0],
+      "type": "LED"
+    },
+    {
+      "id":"distance",
+      "pin": [1, 2],
+      "type": "supersonic-sounding-device"
+    }
+  ]
+}
