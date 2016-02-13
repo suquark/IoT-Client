@@ -83,6 +83,3 @@ class IoTDeviceDiscoverProtocol(object):
         except Exception:
             return None
 
-
-idp = IoTDeviceDiscoverProtocol()
-idp.discover(lambda x, y: print(str(x) + y))

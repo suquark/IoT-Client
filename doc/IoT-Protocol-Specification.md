@@ -2,6 +2,7 @@
 
 > This file acts as a document to IoT Protocol.
 
+
 ## Overall
 
 IoT Protocol is based on the JSON format to follow the idea of RESTful API.
@@ -27,35 +28,36 @@ Here's its detailed format:
 > `role` implies which kind of message it is.
 > It is be of format **action-content**
 
-    ### action
 
-    * broadcast
+### action
 
-    Broadcast a message through UDP in LAN
+* broadcast
 
-    * send
+Broadcast a message through UDP in LAN
 
-    Post a message through TCP
+* send
 
-    * reply
+Post a message through TCP
 
-    Reply a message. Reply a broadcast by UDP and others by TCP
+* reply
 
-    * pull
+Reply a message. Reply a broadcast by UDP and others by TCP
 
-    Ask for something from the cloud
+* pull
 
-    * push
+Ask for something from the cloud
 
-    Send something to the cloud
+* push
 
-    * remote
+Send something to the cloud
 
-    Ask the cloud to deliver a message to the remote device.
+* remote
 
-    ### content
+Ask the cloud to deliver a message to the remote device.
 
-    * discover
+### content
 
-    For IoT device discovery in LAN
+* discover
+
+For IoT device discovery in LAN
 

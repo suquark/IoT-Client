@@ -28,21 +28,3 @@ def add_io(name, pin, iotype):
 
 def save():
     simplejson.dump(iot_id, open('identity.json', 'w+'))
-
-
-# class IoTIdentity(object):
-#     def __init__(self):
-#         # record = simplejson.load(open('identity.json'))
-#
-#         self.device = 'Raspberry Pi 2 Model B'
-#         self.descriptions = 'General Purpose'
-#         self.tags = ['idle']
-#         self.location = 'room'
-#         self.io = []  # List of IoDevice
-#         self.local_master = False
-#
-#
-#
-#
-# a = IoTIdentity()
-# a.save()

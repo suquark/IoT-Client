@@ -1,13 +1,14 @@
 """
-
-Broadcast
-
+===================
+Broadcast discovery
+===================
 
 """
-
+import logging
 from network.iddp import IoTDeviceDiscoverProtocol, iddp_format
 
-client_id = set()
+ip_list = []
+client_id = []
 
 
 def broadcast_discover():
@@ -18,8 +19,11 @@ def broadcast_discover():
 
     def broadcast_discover_hook(msg_dict):
         global client_id
-        client_id.add(msg_dict)
-        return iddp_format('reply-discover')
+        global ip_list
+        if not msg_dict['id']['ip'] in ip_list:
+            client_id.append(msg_dict)
+            ip_list.append(msg_dict['id']['ip'])
+            logging.warning("[Discover] IP: %s, %s" % (msg_dict['id']['ip'], msg_dict['id']['label']))
 
     idp = IoTDeviceDiscoverProtocol()
     idp.discover(broadcast_discover_hook)

@@ -1,3 +1,4 @@
 imutils
 picamera
 simplejson
+cv2
