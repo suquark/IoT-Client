@@ -14,6 +14,7 @@ Here's its detailed format:
 ```
 {
     "proto": "iddp",
+    "uuid": uuid,
     "role": "<rolename>",
     "id": iot_id,
     "data": {<data items}
@@ -60,4 +61,7 @@ Ask the cloud to deliver a message to the remote device.
 * discover
 
 For IoT device discovery in LAN
+
+
+---
 

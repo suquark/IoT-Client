@@ -1,0 +1,81 @@
+import log  # import only
+import os
+import picamera
+from tornado.ioloop import IOLoop
+from tornado.web import RequestHandler, Application, HTTPError, asynchronous
+from tornado.httpclient import AsyncHTTPClient
+from tornado.concurrent import run_on_executor
+
+
+
+class Refrigerator_Opened(RequestHandler):
+    def get(self):
+        print('Server: Set Path')
+        globals()['imgpath'] = './static/' + os.path.basename(self.get_argument('path'))
+        globals()['info'] = self.get_argument('info')
+
+
+class Deploy(RequestHandler):
+    @asynchronous
+    def get(self):
+        http = AsyncHTTPClient()
+        self.get_argument("url")
+        http.fetch("http://friendfeed-api.com/v2/feed/bret",
+                   callback=self.on_response)
+
+    def on_response(self, response):
+        if response.error:
+            raise HTTPError(500)
+        # json = tornado.escape.json_decode(response.body)
+        # self.write("Fetched " + str(len(json["entries"])) + " entries "
+        #            "from the FriendFeed API")
+        self.finish()
+
+
+class polling(RequestHandler):
+    def get(self):
+        print('polling')
+        if globals()['info'] == '':
+            self.set_status(404)
+        else:
+            self.write(globals()['info'])
+            globals()['info'] = ''
+
+
+class image(RequestHandler):
+    def get(self):
+        print('Getting image...')
+        pt = globals()['imgpath']
+        self.write(open(pt).read())
+        self.finish()
+        # self.redirect(pt)
+
+
+class OCRHandler(RequestHandler):
+    def get(self):
+        camera = picamera.PiCamera()
+        camera.video_stabilization = True
+        print('Capturing picture...')
+        camera.capture('temp.jpg')
+        camera.close()
+        print('Analyzing...')
+        self.write(oxfordcv.ocr('temp.jpg', 'en'))
+
+for i in range(65):
+    pass
+
+settings = {
+    "static_path": os.path.join(os.path.dirname(__file__), "static"),
+}
+
+application = Application([
+    (r"/ocr", OCRHandler),
+    (r"/Refrigerator_Opened", Refrigerator_Opened),
+    (r"/image", image),
+    (r"/poll", polling),
+
+], **settings)
+
+if __name__ == "__main__":
+    application.listen(19005)
+    IOLoop.instance().start()

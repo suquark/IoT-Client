@@ -2,3 +2,5 @@ imutils
 picamera
 simplejson
 cv2
+tornado
+pycrypto

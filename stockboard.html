@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mychart</title>
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.bootcss.com/highcharts/4.2.6/highstock.js"></script>
+	<script type="text/javascript">
+
+		var url = 'http:localhost:8000'
+		var title = 'test'
+		var interval = 1000
+
+		$(function () {
+		    Highcharts.setOptions({
+		        global : {
+		            useUTC : false
+		        }
+		    });
+		    // Create the chart
+		    $('#container').highcharts('StockChart', {
+		        chart : {
+		            events : {
+		                load : function () {
+		                    // set up the updating of the chart each second
+		                    var series = this.series[0];
+		                    setInterval(function () {
+		                    	$.getJSON(url, function(data) {
+		                    		y = parseInt(data, 10);
+		                    		var x = (new Date()).getTime(); // current time
+		                        	series.addPoint([x, y], true, shift=false);
+		                    	})
+		                   
+		                    }, interval);
+		                }
+		            }
+		        },
+		        rangeSelector: {
+		            buttons: [{
+		                count: 1,
+		                type: 'minute',
+		                text: '1M'
+		            }, {
+		                count: 5,
+		                type: 'minute',
+		                text: '5M'
+		            }, {
+		                type: 'all',
+		                text: 'All'
+		            }],
+		            inputEnabled: false,
+		            selected: 0
+		        },
+		        title : {
+		            text : title
+		        },
+		        exporting: {
+		            enabled: false
+		        },
+		        series : [{
+		            name : 'Random data',
+		            data: (function (){
+		            	var data = [];
+		            	time = (new Date()).getTime();
+		            	data.push([time, 0]);
+		            	return data;
+		            }())
+		        }]
+		    });
+		});
+	</script>
+</head>
+<body>
+	<div id='container' style="min-width:400px;height:400px"></div>
+</body>
+</html>

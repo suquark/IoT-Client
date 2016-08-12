@@ -13,20 +13,18 @@ def camera_init():
     if not isinstance(camera, PiCamera) or not camera._camera:
         camera = PiCamera()
         print("[INFO] warming up...")
-        time.sleep(conf["camera_warmup_time"])
+        time.sleep(3)
 
 
 class Snapshots(object):
-    def __init__(self):
+    def __init__(self, resolution, framerate):
         global camera
 
         # initialize the camera and grab a reference to the raw camera capture
         camera_init()
-        camera.resolution = tuple(conf["resolution"])
-        camera.framerate = conf["fps"]
-        self.rawCapture = PiRGBArray(camera, size=tuple(conf["resolution"]))
-        # allow the camera to warmup, then initialize the average frame, last
-        # uploaded timestamp, and frame motion counter
+        camera.resolution = resolution
+        camera.framerate = framerate
+        self.rawCapture = PiRGBArray(camera, size=resolution)
 
     def snapshot(self):
         """

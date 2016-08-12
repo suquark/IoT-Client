@@ -2,6 +2,7 @@
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.old
 *.py[cod]
 *$py.class
 
@@ -60,9 +61,9 @@ target/
 ### Example user template template
 ### Example user template
 
+/test.py
 # IntelliJ project files
 
 .idea
-test.py
 *.log
 skey.yaml

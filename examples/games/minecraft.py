@@ -1,0 +1,2 @@
+mc = minecraft.Minecraft.create()
+
