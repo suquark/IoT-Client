@@ -7,7 +7,7 @@ def dev_enum():
     dev_d = {}
     for key in dev_dict.keys():
         dev_d[key] = dev_dict[key].metainfo
-        return dev_d
+    return dev_d
 
 
 def add(device):
