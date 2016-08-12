@@ -27,16 +27,16 @@ elif args.mode == 'master':
     info_t = Thread(target=iddp.broadcast_discover, daemon=True)
 
 
-    def print_loop():
-        while True:
-            sleep(1)
-            Ldict.acquire()
-            print(iddp.ip_list)
-            Ldict.release()
-
-
-    print_t = Thread(target=print_loop, daemon=True)
-    print_t.start()
+    # def print_loop():
+    #     while True:
+    #         sleep(1)
+    #         Ldict.acquire()
+    #         print(iddp.ip_list)
+    #         Ldict.release()
+    #
+    #
+    # print_t = Thread(target=print_loop, daemon=True)
+    # print_t.start()
 
 info_t.start()
 

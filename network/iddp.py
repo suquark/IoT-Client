@@ -14,6 +14,7 @@ import simplejson
 import gzip
 from time import sleep
 from threading import Lock
+import requests
 
 Ldict = Lock()
 
@@ -76,11 +77,8 @@ class IoTDeviceDiscoverProtocol(object):
         while True:
             try:
                 data, addr = self.sock.recvfrom(4096)
-                pingback = hook(pack_ip(resolve_msg(data), addr[0]))
-                for i in range(5):
-                    sleep(0.1 * rand())
-                    self.sock.sendto(pingback, addr)
-                break
+                # pingback = hook(pack_ip(resolve_msg(data), addr[0]))
+                requests.get(addr[0] + "/discovery")
             except socket.timeout:
                 logging.debug("IoTDeviceDiscover Reply timeout")
 
@@ -92,15 +90,18 @@ class IoTDeviceDiscoverProtocol(object):
         """
         for _ in range(5):
             self.sock.sendto(iot_discover_msg, ("255.255.255.255", self.bc_port))
+            sleep(0.1 * rand())
+        """
             while True:
                 try:
                     sleep(0.1 * rand())
                     response, addr = self.sock.recvfrom(4096)
-                    logging.debug("IoTDeviceDiscover: %s" % addr)
+                    logging.debug("IoTDeviceDiscover: %s" % addr[0])
                     hook(pack_ip(resolve_msg(response), addr[0]))
                 except socket.timeout:
                     logging.debug("IoTDeviceDiscover discovery timeout")
                     break
+        """
 
 
 class IoTDeviceDiscover(object):

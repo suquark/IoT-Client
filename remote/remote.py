@@ -70,7 +70,18 @@ class rda_enum(RequestHandler):
         self.write(simplejson.dumps(dev_enum()))
 
 
+local_ip_list = set()
+
+
+class discovery(RequestHandler):
+    def get(self):
+        local_ip_list.add(self.request.remote_ip)
+        print(local_ip_list)
+        self.write('OK')
+
+
 app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
-            (r"/rda/info", rda_device_info)]
+            (r"/rda/info", rda_device_info),
+            (r"/discovery", discovery), ]
