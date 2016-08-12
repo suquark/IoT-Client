@@ -4,7 +4,9 @@ IoT Device Discover Protocol
 ============================
 
 
+About mDNS, see `http://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/`
 """
+
 import socket
 from remote.identity import identity
 import crypto

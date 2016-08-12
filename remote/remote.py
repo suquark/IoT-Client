@@ -93,7 +93,7 @@ class rda_view(RequestHandler):
         info = dev_enum()
         describe = []
         for key in info:
-            describe.append((key, key['class'] + '.png', raw_url() + 'watch_value?devid=%s' % key))
+            describe.append((key, info[key]['class'] + '.png', raw_url() + 'watch_value?devid=%s' % key))
         self.render('gridview.html', title='Device Panel', CARD_NUM=8, describe=describe)
 
 
@@ -124,7 +124,7 @@ class discovery(RequestHandler):
 app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
-            (r"/rda/view", rda_view),
+            (r"/rda/view", rda_view),  # frontend view of all devices
             (r"/rda/info", rda_device_info),
             (r"/discovery", discovery),
             (r"/do_discovery", do_discovery),
