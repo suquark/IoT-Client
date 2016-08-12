@@ -26,7 +26,7 @@
 		                    var series = this.series[0];
 		                    setInterval(function () {
 		                    	$.getJSON(url, function(data) {
-		                    		y = parseInt(data, 10);
+		                    		y = parseFloat(data);
 		                    		var x = (new Date()).getTime(); // current time
 		                        	series.addPoint([x, y], true, shift=false);
 		                    	})
