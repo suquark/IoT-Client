@@ -100,7 +100,7 @@ class rda_view(RequestHandler):
 class watch_value(RequestHandler):
     def get(self):
         devid = self.get_argument('devid')
-        self.render('stockboard.html', title=devid, url=raw_url() + '/rda/get_value?devid=%s' % devid)
+        self.render('stockboard.html', title=devid, url=raw_url() + 'rda/get_value?devid=%s' % devid)
 
 
 local_ip_list = set()
