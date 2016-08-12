@@ -7,8 +7,15 @@ import simplejson
 from remote.device_alloc import dev_dict, dev_enum
 from remote.identity import get_id
 from tornado.web import RequestHandler
+from network.iddp import IoTDeviceDiscoverProtocol
+from tornado.ioloop import IOLoop
+import time
+from time import sleep
+from tornado import gen
+from threading import Thread
 
 port = 19005
+iddp = IoTDeviceDiscoverProtocol()
 
 
 def fit_path(ip, ext):
@@ -79,6 +86,14 @@ class rda_enum(RequestHandler):
 local_ip_list = set()
 
 
+class do_discovery(RequestHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        Thread(target=iddp.discover, args=(None,)).start()
+        yield gen.Task(IOLoop.instance().add_timeout, time.time() + 1)
+        self.write(str(local_ip_list))
+
+
 class discovery(RequestHandler):
     def get(self):
         local_ip_list.add(self.request.remote_ip)
@@ -90,4 +105,5 @@ app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
             (r"/rda/info", rda_device_info),
-            (r"/discovery", discovery), ]
+            (r"/discovery", discovery),
+            (r"/do_discovery", do_discovery)]
