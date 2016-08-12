@@ -8,25 +8,31 @@ from remote.device_alloc import dev_dict, dev_enum
 from remote.identity import get_id
 from tornado.web import RequestHandler
 
+port = 19005
+
+
+def fit_path(ip, ext):
+    return 'http://%s/%d/%s' % (ip, port, ext)
+
 
 def rda_get_url(ip, devid):
     # get
-    return '%s/rda/get_value?devid=%s' % (ip, devid)
+    return fit_path(ip, 'rda/get_value?devid=%s' % devid)
 
 
 def rda_set_url(ip):
     # post
-    return ip + '/rda/set_value'
+    return fit_path(ip, 'rda/get_value')
 
 
 def rda_enum_url(ip):
     # get
-    return ip + '/rda/enum'
+    return fit_path(ip, 'rda/enum')
 
 
 def rda_info_url(ip):
     # get
-    return ip + '/rda/info'
+    return fit_path(ip, 'rda/info')
 
 
 def remote_device_info(ip):

@@ -78,7 +78,7 @@ class IoTDeviceDiscoverProtocol(object):
             try:
                 data, addr = self.sock.recvfrom(4096)
                 # pingback = hook(pack_ip(resolve_msg(data), addr[0]))
-                requests.get(addr[0] + "/discovery")
+                requests.get("http://%s:%d/%s" % (addr[0], 19005, "discovery"))
             except socket.timeout:
                 logging.debug("IoTDeviceDiscover Reply timeout")
 
