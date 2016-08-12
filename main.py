@@ -5,9 +5,11 @@ import argparse
 from multiprocessing import Process
 from threading import Thread, Lock
 from server import start_server
-from network.iddp import IoTDeviceDiscover, Ldict
+from network.iddp import IoTDeviceDiscover
 
-from time import sleep
+import device_setup
+
+device_setup.setup()
 
 iddp = IoTDeviceDiscover()
 

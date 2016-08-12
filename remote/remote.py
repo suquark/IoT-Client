@@ -13,9 +13,14 @@ import time
 from time import sleep
 from tornado import gen
 from threading import Thread
+from network.network_utils import get_ip_address
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
+
+
+def raw_url():
+    return 'http://%s:%d/' % (get_ip_address(), port)
 
 
 def fit_path(ip, ext):
@@ -83,6 +88,20 @@ class rda_enum(RequestHandler):
         self.write(simplejson.dumps(dev_enum()))
 
 
+class rda_view(RequestHandler):
+    def get(self):
+        info = dev_enum()
+        describe = []
+        for key in info:
+            describe.append((key, info['class'] + '.png', raw_url() + 'dev_track?devid=%s' % key))
+        self.render('gridview.html', CARD_NUM=8, describe=describe)
+
+
+class watch_value(RequestHandler):
+    def get(self):
+        pass
+
+
 local_ip_list = set()
 
 
@@ -90,7 +109,7 @@ class do_discovery(RequestHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
         Thread(target=iddp.discover, args=(None,)).start()
-        yield gen.Task(IOLoop.instance().add_timeout, time.time() + 1)
+        yield gen.Task(IOLoop.instance().add_timeout, time.time() + 5)
         self.write(str(local_ip_list))
 
 
@@ -104,6 +123,7 @@ class discovery(RequestHandler):
 app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
+            (r"/rda/view", rda_view),
             (r"/rda/info", rda_device_info),
             (r"/discovery", discovery),
             (r"/do_discovery", do_discovery)]

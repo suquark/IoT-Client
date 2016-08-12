@@ -91,9 +91,9 @@ class IoTDeviceDiscoverProtocol(object):
         :param hook:
         :return: None
         """
-        for _ in range(5):
+        for _ in range(20):
             self.sock.sendto(iot_discover_msg, ("255.255.255.255", self.bc_port))
-            sleep(0.1 * rand())
+            sleep(1 * rand())
         """
             while True:
                 try:
