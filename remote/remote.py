@@ -17,7 +17,7 @@ from network.network_utils import get_ip_address
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
-local_ip_list = set('localhost')
+local_ip_list = set('127.0.0.1')
 
 
 def raw_url():
@@ -104,7 +104,7 @@ class watch_value(RequestHandler):
 
 def gather_info():
     # TODO: How about https?
-    return [remote_device_info(ip) for ip in local_ip_list]
+    return [get_id()] + [remote_device_info(ip) for ip in local_ip_list if ip != '127.0.0.1']
 
 
 class do_discovery(RequestHandler):
