@@ -19,12 +19,13 @@ port = 19005
 iddp = IoTDeviceDiscoverProtocol()
 local_ip_list = set('raspberrypi.local')
 
+
 def raw_url():
     return 'http://%s:%d/' % (get_ip_address(), port)
 
 
 def fit_path(ip, ext):
-    return 'http://%s/%d/%s' % (ip, port, ext)
+    return 'http://%s:%d/%s' % (ip, port, ext)
 
 
 def rda_get_url(ip, devid):
@@ -99,9 +100,6 @@ class watch_value(RequestHandler):
     def get(self):
         devid = self.get_argument('devid')
         self.render('stockboard.html', title=devid, url=raw_url() + 'rda/get_value?devid=%s' % devid)
-
-
-
 
 
 def gather_info():

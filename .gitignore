@@ -64,6 +64,6 @@ target/
 /test.py
 # IntelliJ project files
 
-.idea
+.idea/
 *.log
 skey.yaml
