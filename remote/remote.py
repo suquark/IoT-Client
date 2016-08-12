@@ -93,13 +93,14 @@ class rda_view(RequestHandler):
         info = dev_enum()
         describe = []
         for key in info:
-            describe.append((key, info['class'] + '.png', raw_url() + 'dev_track?devid=%s' % key))
-        self.render('gridview.html', CARD_NUM=8, describe=describe)
+            describe.append((key, key['class'] + '.png', raw_url() + 'watch_value?devid=%s' % key))
+        self.render('gridview.html', title='Device Panel', CARD_NUM=8, describe=describe)
 
 
 class watch_value(RequestHandler):
     def get(self):
-        pass
+        devid = self.get_argument('devid')
+        self.render('stockboard.html', title=devid, url=raw_url() + 'rda_get_value?devid=%s')
 
 
 local_ip_list = set()
@@ -126,4 +127,5 @@ app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/view", rda_view),
             (r"/rda/info", rda_device_info),
             (r"/discovery", discovery),
-            (r"/do_discovery", do_discovery)]
+            (r"/do_discovery", do_discovery),
+            (r"watch_value", watch_value)]

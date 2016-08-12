@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>mychart</title>
-	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-	<script type="text/javascript" src="http://cdn.bootcss.com/highcharts/4.2.6/highstock.js"></script>
-	<script type="text/javascript">
+    <title>mychart</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.bootcss.com/highcharts/4.2.6/highstock.js"></script>
+    <script type="text/javascript">
 
-		var url = 'http:localhost:8000'
-		var title = 'test'
-		var interval = 1000
+		var url = '{{url}}';
+		var title = '{{title}}';
+		var interval = 1000;
 
 		$(function () {
 		    Highcharts.setOptions({
@@ -67,9 +67,9 @@
 		        }]
 		    });
 		});
-	</script>
+    </script>
 </head>
 <body>
-	<div id='container' style="min-width:400px;height:400px"></div>
+<div id='container' style="min-width:400px;height:400px"></div>
 </body>
 </html>
