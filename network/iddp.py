@@ -81,7 +81,7 @@ class IoTDeviceDiscoverProtocol(object):
                 requests.get("http://%s:%d/%s" % (addr[0], 19005, "discovery"))
             except socket.timeout:
                 logging.debug("IoTDeviceDiscover Reply timeout")
-            self.sock.detach()
+            self.sock.close()
             socket.setdefaulttimeout(self.timeout)  # for new socket objects
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 
