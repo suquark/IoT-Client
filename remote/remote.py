@@ -17,7 +17,7 @@ from network.network_utils import get_ip_address
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
-
+local_ip_list = set('raspberrypi.local')
 
 def raw_url():
     return 'http://%s:%d/' % (get_ip_address(), port)
@@ -91,9 +91,7 @@ class rda_enum(RequestHandler):
 class rda_view(RequestHandler):
     def get(self):
         info = dev_enum()
-        describe = []
-        for key in info:
-            describe.append((key, info[key]['class'] + '.png', raw_url() + 'watch_value?devid=%s' % key))
+        describe = [(key, info[key]['class'] + '.png', raw_url() + 'watch_value?devid=%s' % key) for key in info]
         self.render('gridview.html', title='Device Panel', CARD_NUM=8, describe=describe)
 
 
@@ -103,7 +101,15 @@ class watch_value(RequestHandler):
         self.render('stockboard.html', title=devid, url=raw_url() + 'rda/get_value?devid=%s' % devid)
 
 
-local_ip_list = set()
+
+
+
+def gather_info():
+    # TODO: How about https?
+    info = []
+    for ip in local_ip_list:
+        info.append(remote_device_info(ip))
+    return info
 
 
 class do_discovery(RequestHandler):
@@ -121,11 +127,19 @@ class discovery(RequestHandler):
         self.write('OK')
 
 
+class overview(RequestHandler):
+    def get(self):
+        info = gather_info()
+        describe = [(info[key]['label'], info[key]['model'] + '.png', fit_path(key, 'rda/view')) for key in info]
+        self.render('gridview.html', title='Overview', CARD_NUM=8, describe=describe)
+
+
 app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
-            (r"/rda/view", rda_view),  # frontend view of all devices
+            (r"/rda/view", rda_view),  # frontend view of all devices in RPi
+            (r"/overview", overview),  # show all raspberrypi
             (r"/rda/info", rda_device_info),
-            (r"/discovery", discovery),
+            (r"/discovery", discovery),  # discovery
             (r"/do_discovery", do_discovery),
             (r"/watch_value", watch_value)]
