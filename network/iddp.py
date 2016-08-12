@@ -12,7 +12,13 @@ import logging
 import datetime
 import simplejson
 import gzip
+from time import sleep
+from threading import Lock
+Ldict = Lock()
 
+
+from random import random
+rand = random()
 
 def generate_msg(role, msg_dict=None):
     """
@@ -71,7 +77,8 @@ class IoTDeviceDiscoverProtocol(object):
             try:
                 data, addr = self.sock.recvfrom(4096)
                 pingback = hook(pack_ip(resolve_msg(data), addr[0]))
-                for i in range(2):
+                for i in range(5):
+                    sleep(0.1 * rand.random())
                     self.sock.sendto(pingback, addr)
                 break
             except socket.timeout:
@@ -87,7 +94,9 @@ class IoTDeviceDiscoverProtocol(object):
             self.sock.sendto(iot_discover_msg, ("255.255.255.255", self.bc_port))
             while True:
                 try:
+                    sleep(0.1 * rand.random())
                     response, addr = self.sock.recvfrom(4096)
+                    logging.debug("IoTDeviceDiscover: %s" % addr)
                     hook(pack_ip(resolve_msg(response), addr[0]))
                 except socket.timeout:
                     logging.debug("IoTDeviceDiscover discovery timeout")
@@ -121,10 +130,13 @@ class IoTDeviceDiscover(object):
         """
 
         def broadcast_discover_hook(msg_dict):
+            global Ldict
+            Ldict.acquire()
             if not msg_dict['id']['ip'] in self.ip_list:
                 self.client_id.append(msg_dict)
                 self.ip_list.append(msg_dict['id']['ip'])
                 logging.debug("[Discover] IP: %s, %s" % (msg_dict['id']['ip'], msg_dict['id']['label']))
+            Ldict.release()
 
         idp = IoTDeviceDiscoverProtocol()
         idp.discover(broadcast_discover_hook)

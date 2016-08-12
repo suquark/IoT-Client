@@ -5,9 +5,10 @@ import argparse
 from multiprocessing import Process
 from threading import Thread, Lock
 from server import start_server
-from network.iddp import IoTDeviceDiscover
+from network.iddp import IoTDeviceDiscover, Ldict
 
 from time import sleep
+
 
 iddp = IoTDeviceDiscover()
 
@@ -29,7 +30,9 @@ elif args.mode == 'master':
     def print_loop():
         while True:
             sleep(1)
+            Ldict.acquire()
             print(iddp.ip_list)
+            Ldict.release()
 
 
     print_t = Thread(target=print_loop, daemon=True)
