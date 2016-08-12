@@ -17,7 +17,7 @@ from network.network_utils import get_ip_address
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
-local_ip_list = set('raspberrypi.local')
+local_ip_list = set('localhost')
 
 
 def raw_url():
@@ -104,10 +104,7 @@ class watch_value(RequestHandler):
 
 def gather_info():
     # TODO: How about https?
-    info = []
-    for ip in local_ip_list:
-        info.append(remote_device_info(ip))
-    return info
+    return [remote_device_info(ip) for ip in local_ip_list]
 
 
 class do_discovery(RequestHandler):
