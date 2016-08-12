@@ -125,7 +125,7 @@ class discovery(RequestHandler):
 class overview(RequestHandler):
     def get(self):
         info = gather_info()
-        describe = [(info[key]['label'], info[key]['model'] + '.png', fit_path(key, 'rda/view')) for key in info]
+        describe = [(item['label'], item['model'] + '.png', fit_path(item['ip'], 'rda/view')) for item in info]
         self.render('gridview.html', title='Overview', CARD_NUM=8, describe=describe)
 
 
