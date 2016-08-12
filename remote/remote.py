@@ -128,4 +128,4 @@ app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/info", rda_device_info),
             (r"/discovery", discovery),
             (r"/do_discovery", do_discovery),
-            (r"watch_value", watch_value)]
+            (r"/watch_value", watch_value)]
