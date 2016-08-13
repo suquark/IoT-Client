@@ -26,16 +26,10 @@ $(document).ready(function() {
     </div>
     <div class="row">
         {% for word, img, link in describe %}
-
         <div class="col s6 m3">
             <div class="card" style="height: 200px">
                 <div class="card-image waves-effect waves-block waves-light">
-<<<<<<< HEAD
-                    <img class="activator" src="{{img}}" longDesc='{{link}}' style="height: 65%">
-=======
-                    <img class="activator" src="static/{{img}}" longDesc='{{link}}'>
->>>>>>> 9f44fecc9172015267887c0aa132f9094a66e837
-                    <!-- <span class="card-title">Card Title</span> -->
+                    <img class="activator" src="{{static_url(img)}}" longDesc='{{link}}' style="height: 65%">
                 </div>
                 <div class="card-content" style="padding-top: 10px">
                     <p>{{word}}</p>
