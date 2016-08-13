@@ -12,10 +12,10 @@ See `doc.md`
 from remote.device_alloc import dev_enum
 from network.network_utils import get_ip_address
 
-RPi0 = "Raspberry Pi Zero"
-RPi1AP = "Raspberry Pi 1 Model A+"
-RPi2B = "Raspberry Pi 2 Model B"
-RPi3B = "Raspberry Pi 3 Model B"
+RPi0 = "Raspberry_Pi_Zero"
+RPi1AP = "Raspberry_Pi_1_Model_A+"
+RPi2B = "Raspberry_Pi_2_Model_B"
+RPi3B = "Raspberry_Pi_3_Model_B"
 
 identity = {
     "model": RPi2B,

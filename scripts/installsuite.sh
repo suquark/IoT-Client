@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt-get install zsh vim lynx
+sudo apt-get install zsh vim lynx avahi-daemon
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

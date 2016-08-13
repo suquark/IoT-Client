@@ -104,7 +104,7 @@ class watch_value(RequestHandler):
 
 def gather_info():
     # TODO: How about https?
-    return [get_id()] + [remote_device_info(ip) for ip in local_ip_list if ip != '127.0.0.1']
+    return [get_id()] + list(map(remote_device_info, local_ip_list))
 
 
 class do_discovery(RequestHandler):

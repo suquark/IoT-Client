@@ -1,13 +1,5 @@
 from remote.device_alloc import create, add
 
-
-def mono(cl):
-    return {
-        'class': cl,
-        'params': {}
-    }
-
-
 sensehat = [
     "sensor.sensehat.Temperature",
     "sensor.sensehat.Pressure",
