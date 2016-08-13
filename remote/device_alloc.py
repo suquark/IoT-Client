@@ -34,7 +34,11 @@ def create(metadata):
     }
     :return: Device instance
     """
-
+    if isinstance(metadata, str):
+        metadata = {
+            'class': metadata,
+            'params': {}
+        }
     nl = metadata['class'].split('.')
     module_name = '.'.join(nl[:-1])
     module = importlib.import_module(module_name)
