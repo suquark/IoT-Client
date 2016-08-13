@@ -1,23 +1,17 @@
 # from output.sound.buzzer_passive import BuzzerPassive
-# from sensor.distance.ultrasonic import ultrasonic
+# from sensor.distance import DistanceSensorUS
 # u_distance = ultrasonic(echo=22, trigger=23)
 # buzzer = BuzzerPassive(soundpin=24)
 
 from timing.signal import clip
 from time import sleep
 
-from remote.device_alloc import create
+from remote.device_alloc import create, query
 
-u_distance = create({
-    'class': 'sensor.distance.ultrasonic.ultrasonic',
-    'params': {
-        'echo': 22,
-        'trigger': 23
-    }
-})
+u_distance = query('sensor.distance.DistanceSensorUS')[0]
 
 buzzer = create({
-    'class': 'output.sound.buzzer_passive.BuzzerPassive',
+    'class': 'output.sound.BuzzerPassive',
     'params': {
         'soundpin': 24
     }

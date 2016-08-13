@@ -23,6 +23,10 @@ def add(device):
             break
 
 
+def query(classname):
+    return list([dev_dict[key] for key in dev_dict.keys() if dev_dict[key].metainfo['class'] == classname])
+
+
 def create(metadata):
     """
     :param metadata: Something like

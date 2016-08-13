@@ -7,6 +7,14 @@ sensehat = [
     "sensor.temperature.CPU",
 ]
 
+u_distance = {
+    'class': 'sensor.distance.DistanceSensorUS',
+    'params': {
+        'echo': 22,
+        'trigger': 23
+    }
+}
+
 device_sheet = []
 
 device_sheet += sensehat

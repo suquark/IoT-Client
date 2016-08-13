@@ -1,6 +1,8 @@
 """
-This module provide us with the relationship between voice scale & frequency
+Module for sound
 
+
+The relationship between voice scale & frequency:
 
 440.0               1
 466.1637615180899
@@ -17,6 +19,8 @@ This module provide us with the relationship between voice scale & frequency
 
 """
 
+from gpiozero.output_devices import OutputDevice
+from timing.signal import squ_wave
 import math
 
 natural_table = [None, 440.0, 493.88, 554.37, 587.33, 659.26, 739.99, 830.61]
@@ -38,3 +42,18 @@ def scale12(level):
     :return:
     """
     return 440.0 * math.pow(2.0, level / 12.0)
+
+
+class BuzzerPassive(OutputDevice):
+    def __init__(self, soundpin=None, active_high=True):
+        super(BuzzerPassive, self).__init__(soundpin, active_high, initial_value=False)
+
+    def sound(self, timespan, level, base=0):
+        """
+
+        :param timespan: In museconds
+        :param level:
+        :param base:
+        :return:
+        """
+        squ_wave(self, natural(level, base), timespan)
