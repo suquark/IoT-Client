@@ -12,7 +12,9 @@ def dev_enum():
 
 def add(device):
     # WARNING: We allow at most 1024 devices at this time
-    basen = "{0}.{1}".format(device.__class__.__module__, device.__class__.__name__)
+    # basen = "{0}.{1}".format(device.__class__.__module__, device.__class__.__name__)
+
+    basen = device.__class__.__name__
     for i in range(1024):
         if basen + str(i) in dev_dict:
             pass

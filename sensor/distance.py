@@ -9,5 +9,5 @@ ultrasonic.distance()
 """
 
 from gpiozero import DistanceSensor
-ultrasonic = DistanceSensor
 
+DistanceSensorUS = DistanceSensor

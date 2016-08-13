@@ -126,7 +126,7 @@ class overview(RequestHandler):
     def get(self):
         info = gather_info()
         describe = [(item['label'], item['model'] + '.png', fit_path(item['ip'], 'rda/view')) for item in info]
-        self.render('gridview.html', title='Overview', CARD_NUM=8, describe=describe)
+        self.render('gridview.html', title='Overview', describe=describe)
 
 
 app_list = [(r"/rda/get_value", rda_get_value),
