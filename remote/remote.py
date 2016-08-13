@@ -17,7 +17,7 @@ from network.network_utils import get_ip_address
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
-local_ip_list = set('127.0.0.1')
+local_ip_list = set([])
 
 
 def raw_url():
