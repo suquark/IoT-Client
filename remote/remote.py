@@ -139,6 +139,13 @@ class execute(RequestHandler):
         self.write('OK')
 
 
+class stop(RequestHandler):
+    def get(self):
+        app = self.get_argument('app')
+        task.softsignal(app, 1)
+        self.write('OK')
+
+
 app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
@@ -148,4 +155,5 @@ app_list = [(r"/rda/get_value", rda_get_value),
             (r"/discovery", discovery),  # discovery
             (r"/do_discovery", do_discovery),
             (r"/watch_value", watch_value),
-            (r"/execute", execute)]
+            (r"/execute", execute),
+            (r"/stop", stop)]

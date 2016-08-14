@@ -7,10 +7,10 @@ def start(ctx):
     sense = SenseHat()
     sense.clear()
 
-    sense.load_image("msft.png")
+    sense.load_image("apps/msft/msft.png")
 
     while True:
-        if ctx > 0:
+        if ctx.value > 0:
             break
         a = sense.get_accelerometer_raw()
         x, y, z = a['x'], a['y'], a['z']

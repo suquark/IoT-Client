@@ -14,7 +14,7 @@ requirement = {
 
 def start(ctx, u_distance, buzzer):
     while True:
-        if ctx > 0:
+        if ctx.value > 0:
             break
         d = u_distance.distance
         level = clip(int((d - 0.05) * 100.0 / 2 + 1), 1, 7)
