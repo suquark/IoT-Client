@@ -109,6 +109,15 @@ class IoTDeviceDiscoverProtocol(object):
         """
 
 
+def simple_announce():
+    while True:
+        sleep(3)
+        try:
+            requests.get("http://master.local:19005/discovery")
+        except:
+            pass
+
+
 class IoTDeviceDiscover(object):
     def __init__(self):
         self.master_id = None
