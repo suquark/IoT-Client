@@ -1,3 +1,7 @@
+"""
+User-defined page
+"""
+
 from remote.device_alloc import create, add
 
 sensehat = [
@@ -17,7 +21,12 @@ u_distance = {
 
 device_sheet = []
 
-device_sheet += sensehat
+try:
+    import sense_hat
+
+    device_sheet += sensehat
+except:
+    device_sheet.append(u_distance)
 
 
 def setup():
