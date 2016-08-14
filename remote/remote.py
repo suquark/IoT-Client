@@ -14,6 +14,8 @@ from time import sleep
 from tornado import gen
 from threading import Thread
 from network.network_utils import get_ip_address
+import importlib
+from tasking import task
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
@@ -129,6 +131,14 @@ class overview(RequestHandler):
         self.render('gridview.html', title='Overview', describe=describe)
 
 
+class execute(RequestHandler):
+    def get(self):
+        app = self.get_argument('app')
+        mod = importlib.import_module(app)
+        task.start(mod)
+        self.write('OK')
+
+
 app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/set_value", rda_set_value),
             (r"/rda/enum", rda_enum),
@@ -137,4 +147,5 @@ app_list = [(r"/rda/get_value", rda_get_value),
             (r"/rda/info", rda_device_info),
             (r"/discovery", discovery),  # discovery
             (r"/do_discovery", do_discovery),
-            (r"/watch_value", watch_value)]
+            (r"/watch_value", watch_value),
+            (r"/execute", execute)]

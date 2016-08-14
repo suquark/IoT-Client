@@ -1,4 +1,4 @@
-from examples import play_music
-from examples.games import maze, flappy
+from apps import play_music
+from apps.games import maze, flappy
 
 __all__ = ["play_music", "maze", "flappy"]

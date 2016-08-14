@@ -24,7 +24,18 @@ def add(device):
 
 
 def query(classname):
+    """
+    Get all devices in a certain class
+    :param classname:
+    :return:
+    """
     return list([dev_dict[key] for key in dev_dict.keys() if dev_dict[key].metainfo['class'] == classname])
+
+
+def query_first(classname):
+    lst = query(classname)
+    assert len(lst) > 0, "No %s device found." % classname
+    return lst[0]
 
 
 def create(metadata):
