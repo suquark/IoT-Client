@@ -10,4 +10,4 @@ def start(module):
     params = dict([(key, query_first(item)) for key, item in r.items()])
     ctx = Value('i', 0)
     tasklist.append((module, ctx))
-    Process(module.start, args=(ctx,), kwargs=params).start()
+    Process(target=module.start, args=(ctx,), kwargs=params).start()

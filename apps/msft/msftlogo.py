@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
 
-requirement = []
+requirement = {}
 
 
 def start(ctx):
