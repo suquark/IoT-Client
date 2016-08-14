@@ -24,6 +24,7 @@ device_sheet = []
 try:
     import sense_hat
 
+    s = sense_hat.SenseHat()
     device_sheet += sensehat
 except:
     device_sheet.append(u_distance)
