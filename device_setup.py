@@ -8,7 +8,7 @@ sensehat = [
     "sensor.sensehat.Temperature",
     "sensor.sensehat.Pressure",
     "sensor.sensehat.Humidity",
-    "sensor.temperature.CPU",
+
 ]
 
 u_distance = {
@@ -19,7 +19,7 @@ u_distance = {
     }
 }
 
-device_sheet = []
+device_sheet = ["sensor.temperature.CPU"]
 
 try:
     import sense_hat
