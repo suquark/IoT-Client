@@ -5,7 +5,7 @@ tasklist = {}
 
 
 def start(module):
-    if not (module.__name__ in tasklist and tasklist[module.__name__].proc.is_alive):
+    if not available(module):
         r = module.requirement
         assert isinstance(r, dict)
         params = dict([(key, query_first(item)) for key, item in r.items()])
@@ -14,6 +14,10 @@ def start(module):
         p = Process(target=module.start, args=(ctx,), kwargs=params)
         ctx.proc = p
         p.start()
+
+
+def available(module):
+    return module.__name__ in tasklist and tasklist[module.__name__].proc.is_alive()
 
 
 def softsignal(mod_name, v):

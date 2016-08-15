@@ -39,6 +39,22 @@ $(document).ready(function() {
         </div>
         {% end %}
     </div>
+    <hr>
+    <h5>APPs</h5>
+    <div class="row">
+        {% for word, img, link in appdescribe %}
+        <div class="col s6 m3">
+            <div class="card" style="height: 200px">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="{{static_url(img)}}" longDesc='{{link}}' style="height: 65%">
+                </div>
+                <div class="card-content" style="padding-top: 10px">
+                    <p>{{word}}</p>
+                </div>
+            </div>
+        </div>
+        {% end %}
+    </div>
 </div>
 </body>
 

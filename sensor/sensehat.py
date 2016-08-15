@@ -9,6 +9,7 @@ try:
     from picamera import PiCamera
     from picamera.array import PiRGBArray
 
+
     def test_camera():
         while True:
             with PiCamera() as camera:
@@ -42,6 +43,15 @@ class GravityDirection(object):
         elif 359 > roll > 179:  # and y != 0:
             dy -= 1
         return dx, dy
+
+
+class AccelerometerRaw(object):
+    def __init__(self, **kwargs):
+        pass
+
+    @property
+    def value(self):
+        return sense.get_accelerometer_raw()  # [x, y, z]
 
 
 class Temperature(object):

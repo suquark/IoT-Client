@@ -16,6 +16,7 @@ from threading import Thread
 from network.network_utils import get_ip_address
 import importlib
 from tasking import task
+from apps import applist
 
 port = 19005
 iddp = IoTDeviceDiscoverProtocol()
@@ -95,7 +96,14 @@ class rda_view(RequestHandler):
     def get(self):
         info = dev_enum()
         describe = [(key, info[key]['class'] + '.png', raw_url() + 'watch_value?devid=%s' % key) for key in info]
-        self.render('gridview.html', title='Device Panel', CARD_NUM=8, describe=describe)
+
+        appdescribe = []
+        for key in applist:
+            if task.available(key):
+                appdescribe.append((key + '[running]', '.png', raw_url() + 'stop?app=%s' % key))
+            else:
+                appdescribe.append((key + '[not active]', '.png', raw_url() + 'execute?app=%s' % key))
+        self.render('gridview_split.html', title='Device Panel', describe=describe, appdescribe=appdescribe)
 
 
 class watch_value(RequestHandler):
@@ -136,14 +144,15 @@ class execute(RequestHandler):
         app = self.get_argument('app')
         mod = importlib.import_module(app)
         task.start(mod)
-        self.write('OK')
+        self.redirect('/rda/view')
+        # self.write('OK')
 
 
 class stop(RequestHandler):
     def get(self):
         app = self.get_argument('app')
         task.softsignal(app, 1)
-        self.write('OK')
+        self.redirect('/rda/view')
 
 
 app_list = [(r"/rda/get_value", rda_get_value),
